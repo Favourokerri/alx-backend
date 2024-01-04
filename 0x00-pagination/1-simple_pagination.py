@@ -4,6 +4,7 @@ from typing import List
 
 index_range = __import__('0-simple_helper_function').index_range
 
+
 class Server:
     """Server class to paginate a database of popular baby names.
     """
@@ -24,20 +25,17 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-            """
-		takes two aguement page and page size 
-		with default values 1 and 10 respectively
-            """
-            assert isinstance(page, int) and page > 0, "Page must be an integer"
-            assert isinstance(page_size, int) and page_size > 0, "page size must be an integer"
+        """
+            takes two aguement page and page size
+            with default values 1 and 10 respectively
+         """
+        assert isinstance(page, int) and page > 0, "Page must be integer"
+        assert isinstance(page_size, int) and page_size > 0, "must be integer"
 
-            content = self.dataset()
+        content = self.dataset()
 
-            start_page, end_page = index_range(page, page_size)
-            
-            if start_page > len(content) or end_page > len(content):
-                return []
-            else:
-                return content[start_page:end_page]
-
-
+        start_page, end_page = index_range(page, page_size)
+        if start_page > len(content) or end_page > len(content):
+            return []
+        else:
+            return content[start_page:end_page]
