@@ -5,7 +5,7 @@ Deletion-resilient hypermedia pagination
 
 import csv
 import math
-from typing import List, Dict
+from typing import Dict, List
 
 
 class Server:
@@ -39,31 +39,30 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None,
-                        page_size: int = 10) -> Dict:
-        """ return all data"""
-
-        if index is None:
-            index = 0
-
-        # validate the index
-        assert isinstance(index, int)
-        assert 0 <= index < len(self.indexed_dataset())
-        assert isinstance(page_size, int) and page_size > 0
-
-        data = []  # collect all indexed data
-        next_index = index + page_size
-
-        for value in range(index, next_index):
-            if self.indexed_dataset().get(value):
-                data.append(self.indexed_dataset()[value])
-            else:
-                value += 1
-                next_index += 1
-
-        return {
-            'index': index,
-            'data': data,
-            'page_size': page_size,
-            'next_index': next_index
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """
+        this method takes 2 int args and returns a dictionary with key-value
+        pair
+        Args:
+            index(int): first requested index
+            page_size(int): number of records per page
+        Return
+            Dict with key-value pairs
+        """
+        dataset = self.indexed_dataset()
+        assert type(index) == int and type(page_size) == int and\
+            index >= 0 and index < len(dataset)
+        data = []
+        next_page = index
+        for _ in range(page_size):
+            while not dataset.get(next_page):
+                next_page += 1
+            data.append(dataset.get(next_page))
+            next_page += 1
+        new_dict = {
+            "index": index,
+            "data": data,
+            "page_size": page_size,
+            "next_index": next_page,
         }
+        return new_dict
