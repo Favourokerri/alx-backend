@@ -15,10 +15,16 @@ class BasicCache(BaseCaching):
         super().__init__()
 
     def put(self, key, item):
-        """ method to insert into cache """
+        """_summary_
+
+        Args:
+                key (_type_): _description_
+                item (_type_): _description_
+        """
         if key is None or item is None:
             pass
-        self.cache_data[key] = item
+        else:
+            self.cache_data[key] = item
 
     def get(self, key):
         """ retrives item from cache """
