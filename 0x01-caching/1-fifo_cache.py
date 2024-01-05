@@ -13,7 +13,6 @@ class FIFOCache(BaseCaching):
         """_summary_
         """
         super().__init__()
-        self.max_items = self.MAX_ITEMS
 
     def put(self, key, item):
         """_summary_
