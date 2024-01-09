@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
+"""A simple flask app
+"""
 
 
 from flask import Flask, render_template
-"""
-    basic flask app
-"""
 
 app = Flask(__name__)
 
 
 @app.route('/')
-def home():
-    """ home route"""
+def hello_world():
+    """_summary_
+    """
     return render_template('0-index.html')
 
 
